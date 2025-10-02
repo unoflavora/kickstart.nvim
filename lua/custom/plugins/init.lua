@@ -1,29 +1,32 @@
--- You can add your own plugins here or in other files in this directory!
---  I promise not to create any merge conflicts in this directory :)
---
--- See the kickstart.nvim README for more information
 return {
-  -- Go LSP
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        gopls = {
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-              gofumpt = true,
+  "neovim/nvim-lspconfig",
+  opts = {
+    servers = {
+      gopls = {
+        settings = {
+          gopls = {
+            analyses = {
+              unusedparams = true,
             },
+            staticcheck = true,
+            gofumpt = true,
+          },
+        },
+      },
+      protobuf_language_server = {
+        cmd = { "protobuf-language-server" },
+        filetypes = { "proto", "cpp" },
+        root_dir = require("lspconfig.util").root_pattern(".git", "."),
+        single_file_support = true,
+        settings = {
+          ["additional-proto-dirs"] = {
+            -- "vendor/protos",
+            -- "third_party",
           },
         },
       },
     },
   },
-
-  -- File Browser
   {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = {
